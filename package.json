@@ -1,5 +1,5 @@
 {
-  "name": "STM Metro Status, Societé de Transport de Montréal",
+  "name": "stm-metro-status",
   "version": "1.0.0",
   "description": "STM Metro Service, queries the STM status page and returns the status of the metro lines in Montreal.",
   "main": "src/stm.js",

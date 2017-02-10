@@ -4,12 +4,17 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 stmModule.prototype.getMetroStatus = function(callback) {
-	request.get("http://www.stm.info/en/info/networks/metro", function (a, b, c) {
+	request.get("http://www.stm.info/en/info/networks/metro", function (error, response) {
+
+		if(error){
+			callback(error, false);
+			return ;
+		}
 
 		var metroStatus = {};
 
-		// console.log(b);
-		parser = cheerio.load(b.body, {normalizeWhitespace: true});
+
+		parser = cheerio.load(response.body, {normalizeWhitespace: true});
 		delete b;
 		nodes = parser("aside#aside-sidebar div#status-services div.line div.block");
 
@@ -24,10 +29,9 @@ stmModule.prototype.getMetroStatus = function(callback) {
 			}
 
 			metroStatus[line] = status;
-			callback(status);
 		})
 
-		callback(metroStatus)
+		callback(null, metroStatus);
 	})
 }
 
